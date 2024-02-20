@@ -16,9 +16,10 @@ The clickable prototype of the __core features__ were built initially by
 [__Jhaver Jan Gurtiza__]( linkedin.com/in/jgurtiza), UI/UX Engineer and Frontend Developer of Village88. Initial pages as seen in the prototype: [__Prototype in Figma__](https://www.figma.com/file/lnxxTTQStJyVsuWAa8FiDJ/Organic-Shop?type=design&node-id=0-1&mode=design)
 ### Core Features:
 - Admin manages orders
-- CRUD functionality of Products
-- Cart page
-- Ordering system
+- Admin CRUD functionality of Products
+- Customer Cart page
+- Customer Ordering system
+- Customer Login and Registration
 ### Extras:
 - Profile Page
 - CRUD functionality of Product Categories
