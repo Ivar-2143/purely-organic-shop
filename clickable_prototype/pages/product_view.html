@@ -20,19 +20,42 @@
 <script>
     $(document).ready(function() {
         $("#add_to_cart").click(function(){
-            $("<span class='added_to_cart'>Added to cart succesfully!</span>")
-            .insertAfter(this)
-            .fadeIn()
-            .delay(1000)
-            .fadeOut(function() {
-                $(this).remove();
-            });
+            // $("<span class='added_to_cart'>Added to cart succesfully!</span>")
+            // .insertAfter(this)
+            // .fadeIn()
+            // .delay(1000)
+            // .fadeOut(function() { 
+            //     $(this).remove();
+            // });
+            $('#success_modal')
+                .fadeIn()
+                .delay(1000)
+                .fadeOut();
+            $('.popover_overlay')
+                .fadeIn()
+                .delay(1000)
+                .fadeOut();
             return false;
+        });
+        $('.show_image').on('click', function(){
+            let newSrc = $(this).children().attr('src');
+            $('#food_preview').attr('src',newSrc);
+            $('li.active').removeClass('active');
+            $(this).parent().addClass('active');
+        });
+        $('.increase_decrease_quantity').on('click', function(){
+            let value = parseInt($('#value').val());    	
+            let ctrl_qty = parseInt($(this).attr('data-quantity-ctrl'))
+            if(value == 1 && ctrl_qty == -1){
+                    return;
+            }
+            $('#value').val(value += ctrl_qty);
         });
     })
 </script>
 <body>
     <div class="wrapper">
+        
         <header>
             <h1>Let’s order fresh items for you.</h1>
             <div>
@@ -55,12 +78,12 @@
             <a href="catalogue.html">Go Back</a>
             <ul>
                 <li>
-                    <img src="../assets/images/burger.png" alt="food">
+                    <img id="food_preview" src="../assets/images/burger.png" alt="food">
                     <ul>
                         <li class="active"><button class="show_image"><img src="../assets/images/burger.png" alt="food"></button></li>
-                        <li><button class="show_image"><img src="../assets/images/burger.png" alt="food"></button></li>
-                        <li><button class="show_image"><img src="../assets/images/burger.png" alt="food"></button></li>
-                        <li><button class="show_image"><img src="../assets/images/burger.png" alt="food"></button></li>
+                        <li><button class="show_image"><img src="../assets/images/products/3/pork2.jpg" alt="food"></button></li>
+                        <li><button class="show_image"><img src="../assets/images/products/4/beef3.jpg" alt="food"></button></li>
+                        <li><button class="show_image"><img src="../assets/images/products/5/chicken1.png" alt="food"></button></li>
                     </ul>
                 </li>
                 <li>
@@ -82,7 +105,7 @@
                                 <input id="value" type="text" min-value="1" value="1">
                                 <ul>
                                     <li><button title="increase" type="button" class="increase_decrease_quantity" data-quantity-ctrl="1"></button></li>
-                                    <li><button title="decrease" type="button" class="increase_decrease_quantity" data-quantity-ctrl="0"></button></li>
+                                    <li><button title="decrease" type="button" class="increase_decrease_quantity" data-quantity-ctrl="-1"></button></li>
                                 </ul>
                             </li>
                             <li>
@@ -98,8 +121,8 @@
                 <h3>Similar Items</h3>
                 <ul>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/1/vegetable3.png" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -113,8 +136,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a class="product" href="product_view.html">
+                            <img src="../assets/images/products/1/vegetable1.png" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -128,8 +151,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/2/fruit3.jpg" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -143,8 +166,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/3/pork2.jpg" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -158,8 +181,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/3/pork1.jpg" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -173,8 +196,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/4/beef3.jpg" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -188,8 +211,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product_view.html">
-                            <img src="../assets/images/food.png" alt="#">
+                        <a  class="product"href="product_view.html">
+                            <img src="../assets/images/products/5/chicken1.png" alt="#">
                             <h3>Vegetables</h3>
                             <ul class="rating">
                                 <li></li>
@@ -205,6 +228,15 @@
                 </ul>
             </section>
         </section>
+        <div id="success_modal" class="modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <button> </button> -->
+                    <h3>Added to cart successfully!</h3>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="popover_overlay"></div>
 </body>
 </html>
