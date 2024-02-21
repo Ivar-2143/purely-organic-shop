@@ -345,12 +345,12 @@ body .wrapper #success_modal .modal-dialog .modal-content h3::before {
   width: 33px;
   height: 33px;
   content: "";
-  display: inline-block; 
+  display: inline-block;
   vertical-align: top;
   background-image: url("../../images/check.svg");
   margin-right: 15px;
 }
-.added_to_cart{
+.added_to_cart {
   background-color: #FFFFFF;
   border-radius: 8px;
   color: #7D7D7D;
