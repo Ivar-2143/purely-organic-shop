@@ -180,7 +180,7 @@ body .wrapper > section > div > ul > li a .rating li {
   vertical-align: top;
   width: 13px;
 }
-body .wrapper > section > div > ul > li a .rating li.blank{
+body .wrapper > section > div > ul > li a .rating li.blank {
   background-position: 100% 50%;
 }
 body .wrapper > section > div > ul > li a .category {
@@ -196,7 +196,6 @@ body .wrapper > section > div > ul > li a .category::before {
   vertical-align: top;
   width: 13px;
   content: "";
-  color: #e8e8e8;
 }
 body .wrapper > section > div > ul > li a .price {
   background-color: #F1F1F1;
