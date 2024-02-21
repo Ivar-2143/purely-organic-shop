@@ -20,6 +20,12 @@
 
 <script>
     $(document).ready(function() {
+        $(document).on('change', function(){
+            console.log($('.cart_items_form ul').children().length);
+        })
+        $('.cart_items_form ul').children().on('change', function(){
+            
+        });
     });
 </script>
 <body>
@@ -51,7 +57,7 @@
                             <h3>Vegetable</h3>
                             <span>$ 10</span>
                             <ul>
-                                <li>
+                                <li class="form_controls">
                                     <label for="item1" >Quantity</label>
                                     <input id="item1" type="text" min-value="1" value="1">
                                     <ul>
@@ -78,34 +84,7 @@
                             <h3>Vegetable</h3>
                             <span>$ 10</span>
                             <ul>
-                                <li>
-                                    <label for="item1" >Quantity</label>
-                                    <input id="item1" type="text" min-value="1" value="1">
-                                    <ul>
-                                        <li><button title="increase" type="button" class="increase_decrease_quantity btn_increase_qty" data-quantity-ctrl="1"></button></li>
-                                        <li><button title="decrease" type="button" class="increase_decrease_quantity btn_decrease_qty" data-quantity-ctrl="0"></button></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <label>Total Amount</label>
-                                    <span class="total_amount">$ 10</span>
-                                </li>
-                                <li>
-                                    <button title="Remove" type="button" class="remove_item"></button>
-                                </li>
-                            </ul>
-                            <div>
-                                <p>Are you sure you want to remove this item?</p>
-                                <button type="button" class="cancel_remove">Cancel</button>
-                                <button type="button" class="remove">Remove</button>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="../assets/images/burger.png" alt="">
-                            <h3>Vegetable</h3>
-                            <span>$ 10</span>
-                            <ul>
-                                <li>
+                                <li class="form_controls">
                                     <label for="item2" >Quantity</label>
                                     <input id="item2" type="text" min-value="1" value="1">
                                     <ul>
@@ -132,9 +111,9 @@
                             <h3>Vegetable</h3>
                             <span>$ 10</span>
                             <ul>
-                                <li>
-                                    <label for="item3" >Quantity</label>
-                                    <input id="item3" type="text" min-value="1" value="1">
+                                <li class="form_controls">
+                                    <label for="item1" >Quantity</label>
+                                    <input id="item1" type="text" min-value="1" value="1">
                                     <ul>
                                         <li><button title="increase" type="button" class="increase_decrease_quantity btn_increase_qty" data-quantity-ctrl="1"></button></li>
                                         <li><button title="decrease" type="button" class="increase_decrease_quantity btn_decrease_qty" data-quantity-ctrl="0"></button></li>
@@ -159,9 +138,9 @@
                             <h3>Vegetable</h3>
                             <span>$ 10</span>
                             <ul>
-                                <li>
-                                    <label for="item4" >Quantity</label>
-                                    <input id="item4" type="text" min-value="1" value="1">
+                                <li class="form_controls">
+                                    <label for="item1" >Quantity</label>
+                                    <input id="item1" type="text" min-value="1" value="1">
                                     <ul>
                                         <li><button title="increase" type="button" class="increase_decrease_quantity btn_increase_qty" data-quantity-ctrl="1"></button></li>
                                         <li><button title="decrease" type="button" class="increase_decrease_quantity btn_decrease_qty" data-quantity-ctrl="0"></button></li>
@@ -186,9 +165,36 @@
                             <h3>Vegetable</h3>
                             <span>$ 10</span>
                             <ul>
+                                <li class="form_controls">
+                                    <label for="item1" >Quantity</label>
+                                    <input id="item1" type="text" min-value="1" value="1">
+                                    <ul>
+                                        <li><button title="increase" type="button" class="increase_decrease_quantity btn_increase_qty" data-quantity-ctrl="1"></button></li>
+                                        <li><button title="decrease" type="button" class="increase_decrease_quantity btn_decrease_qty" data-quantity-ctrl="0"></button></li>
+                                    </ul>
+                                </li>
                                 <li>
-                                    <label for="item5" >Quantity</label>
-                                    <input id="item5" type="text" min-value="1" value="1">
+                                    <label>Total Amount</label>
+                                    <span class="total_amount">$ 10</span>
+                                </li>
+                                <li>
+                                    <button title="Remove" type="button" class="remove_item"></button>
+                                </li>
+                            </ul>
+                            <div>
+                                <p>Are you sure you want to remove this item?</p>
+                                <button type="button" class="cancel_remove">Cancel</button>
+                                <button type="button" class="remove">Remove</button>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../assets/images/burger.png" alt="">
+                            <h3>Vegetable</h3>
+                            <span>$ 10</span>
+                            <ul>
+                                <li class="form_controls">
+                                    <label for="item1" >Quantity</label>
+                                    <input id="item1" type="text" min-value="1" value="1">
                                     <ul>
                                         <li><button title="increase" type="button" class="increase_decrease_quantity btn_increase_qty" data-quantity-ctrl="1"></button></li>
                                         <li><button title="decrease" type="button" class="increase_decrease_quantity btn_decrease_qty" data-quantity-ctrl="0"></button></li>
