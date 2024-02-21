@@ -278,6 +278,7 @@ body .wrapper > section > section > ul > li a img {
   top: -2px;
   width: 245px;
   height: 202px;
+  object-fit: cover;
 }
 body .wrapper > section > section > ul > li a h3 {
   color: #7D7D7D;
