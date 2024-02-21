@@ -345,7 +345,7 @@ body .wrapper #success_modal .modal-dialog .modal-content h3::before {
   width: 33px;
   height: 33px;
   content: "";
-  display: inline-block;
+  display: inline-block; 
   vertical-align: top;
   background-image: url("../../images/check.svg");
   margin-right: 15px;
