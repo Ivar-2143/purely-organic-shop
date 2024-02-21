@@ -324,7 +324,11 @@ body .wrapper > section > section > ul > li a > span {
   vertical-align: top;
 }
 body .wrapper #success_modal .modal-dialog {
-  max-width: 557px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 557px;
 }
 body .wrapper #success_modal .modal-dialog .modal-content {
   position: relative;
@@ -332,10 +336,12 @@ body .wrapper #success_modal .modal-dialog .modal-content {
 body .wrapper #success_modal .modal-dialog .modal-content button {
   width: 14px;
   height: 14px;
+  background: none;
   background-image: url("../../images/close.svg");
   position: absolute;
   right: 32px;
   top: 44px;
+  border: none;
 }
 body .wrapper #success_modal .modal-dialog .modal-content h3 {
   font: 18px/32px roboto_medium, sans-serif;
