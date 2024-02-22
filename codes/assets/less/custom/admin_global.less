@@ -149,7 +149,7 @@ body {
             }
             div {
                 position: absolute;
-                right: 30px;
+                right: 90px;
                 top: 17px;
                 button {
                     border-radius: 10px;
@@ -171,19 +171,7 @@ body {
                         background-color: #9C89FF;
                         color: #fff;
                     }
-                    &.switch {
-                        width: 154px;
-                        color: #fff;
-                        border: 1px solid #9C89FF;
-                        background-color: transparent;
-                        font: 14px/17px proxima_nova_regular, sans-serif;
-                        margin-right: 15px;
-                        &:hover {
-                            color: #9C89FF;
-                            background-color: #fff;
-                            opacity: 1;
-                        }
-                    }
+                    
                     &.profile {
                         border: none;
                         width: auto;
@@ -192,6 +180,21 @@ body {
                         img {
                             border-radius: 50%;
                         }
+                    }
+                }
+                a.switch {
+                    width: 154px;
+                    color: #fff;
+                    border: 1px solid #9C89FF;
+                    background-color: transparent;
+                    font: 14px/17px proxima_nova_regular, sans-serif;
+                    margin-right: 15px;
+                    padding: 15px;
+                    border-radius: 10px;
+                    &:hover {
+                        color: #9C89FF;
+                        background-color: #fff;
+                        opacity: 1;
                     }
                 }
             }
@@ -1015,7 +1018,7 @@ body {
                                     background-color: #fff;
                                     transition: 0.21s;
                                     margin-right: 13px;
-                                    
+                                    display: inline-block;
                                     &:hover {
                                         background-color: #F3F1FF;
                                         border: 1px solid #DAD3FF;
@@ -1182,4 +1185,41 @@ body {
 .show_popover_overlay {
     overflow: hidden;
     padding-right: 15px;
+}
+.edit_product{
+    width: 90px;
+    height: 37px;
+    border-radius: 10px;
+    background: #373A4B;
+    color: #CAC0FF;
+    border: none;
+    position: relative;
+    bottom: 10px;
+    right: 30px;
+}
+.delete_product{
+    color: #474B67;
+    border: none;
+    background: none;
+    position: relative;
+    bottom: 12px;
+    right: 7px;
+}
+.delete_product:hover{
+    color: #5F72FF;
+}
+.profile_dropdown {
+    position: absolute;
+    left: 7px;
+    top: 5px;
+    border: none !important;
+    background: none !important;
+}
+.admin_dropdown.show {
+    top: 20px !important;
+    left: -55px !important;
+    background: #2A2D3E;
+}
+.admin_dropdown a{
+    color: #FFFFFF;
 }

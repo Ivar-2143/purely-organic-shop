@@ -48,6 +48,9 @@ $(document).ready(function() {
     });
 
     $("body").on("submit", ".add_product_form", function() {
+        let form = $(this);
+        if (form.data('submitEnabled') == false) { return false; }
+        form.data('submitEnabled', false);
         $.ajax({
             url: $(this).attr("action"),
             type: 'POST',
@@ -57,7 +60,8 @@ $(document).ready(function() {
             processData:false,
             success: function(res) {
                 let form_data_action = $('.form_data_action').val();
-                
+                populate_csrf();
+                form.data('submitEnabled', true);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
                     if(parseInt(res) == 0) {
                         $(".product_content").html(res);
@@ -75,10 +79,9 @@ $(document).ready(function() {
                     resetAddProductForm();
                 };
                 ($(".add_product_form").attr("data-modal-action") == 0) ? $(".form_data_action").val("add_product") : $(".form_data_action").val("edit_product");
-                ($(".image_preview_list").children().length >= 4) ? $(".upload_image").addClass("hidden") : $(".upload_image").removeClass("hidden");
+                ($(".image_preview_list").children('li').length >= 4) ? $(".upload_image").parent().addClass("hidden") : $(".upload_image").parent().removeClass("hidden");
             }
         });
- 
         return false;
     }); 
 
@@ -131,6 +134,7 @@ $(document).ready(function() {
         return false;
     });
 
+    populate_csrf();
 });
 
 function resetAddProductForm() {
@@ -146,5 +150,11 @@ function filterProducts(form) {
     $.post(form.attr("action"), form.serialize(), function(res) {
         $(".product_content").html(res);
         console.log(res);
+    });
+}
+
+function populate_csrf(){
+    $.get('http://localhost.organic-shop/users/csrf',function(res){
+        $('#csrf').html(res);
     });
 }

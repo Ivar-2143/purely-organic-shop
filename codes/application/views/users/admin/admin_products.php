@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="../assets/css/vendor/bootstrap-select.min.css">
 
     <link rel="stylesheet" href="../assets/css/custom/admin_global.css">
-    <script src="../assets/js/global/admin_products.js"></script>
+    <script src="<?=base_url('assets/js/global/admin_products.js')?>"></script>
 </head>
 <script>
     $(document).ready(function() {
-        $("form").submit(function(event) {
-            event.preventDefault();
-            return false;
-        });
+        // $("form").submit(function(event) {
+        //     event.preventDefault();
+        //     return false;
+        // });
         /* prototype add */
         $(".switch").click(function() {
             window.location.href = "products_dashboard.html";
@@ -59,6 +59,7 @@
             </form>
             <button class="add_product" data-toggle="modal" data-target="#add_product_modal">Add Product</button>
             <form action="process.php" method="post" class="categories_form">
+                <?php   $this->load->view('partials/csrf_input')?>
                 <h3>Categories</h3>
                 <ul>
                     <li>
@@ -379,15 +380,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <button data-dismiss="modal" aria-label="Close" class="close_modal"></button>
-                    <form class="delete_product_form" action="process.php" method="post">
+                    <form class="add_product_form" action="<?=base_url('products/process')?>" method="post" enctype="multipart/form-data">
                         <h2>Add a Product</h2>
                         <ul>
                             <li>
-                                <input type="text" name="prouct_name" required>
+                                <input type="text" name="prouct_name">
                                 <label>Product Name</label>
                             </li>
                             <li>
-                                <textarea name="description" required></textarea>
+                                <textarea name="description"></textarea>
                                 <label>Description</label>
                             </li>
                             <li>
@@ -401,21 +402,28 @@
                                 </select>
                             </li>
                             <li>
-                                <input type="number" name="price" value="1" required>
+                                <input type="number" name="price" value="1">
                                 <label>Price</label>
                             </li>
                             <li>
-                                <input type="number" name="inventory" value="1" required>
+                                <input type="number" name="inventory" value="1">
                                 <label>Inventory</label>
                             </li>
                             <li>
                                 <label>Upload Images (5 Max)</label>
                                 <ul>
-                                    <li><button type="button" class="upload_image"></button></li>
+                                    <li>
+                                        <button type="button" class="upload_image"></button>
+                                    </li>
                                 </ul>
-                                <input type="file" name="image" accept="image/*">
+                                <ul class="image_preview_list">
+                                </ul>
+                                <input class="image_input" type="file" name="image" accept="image/*">
+                                <input name="image_index" type="hidden" value="">
                             </li>
                         </ul>
+                        <input type="hidden" id="csrf">
+                        <input class="form_data_action" name="form_action" type="hidden" value="">
                         <button type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit">Save</button>
                     </form>

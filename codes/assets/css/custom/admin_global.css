@@ -169,6 +169,15 @@ body .wrapper header div button.login_btn {
   background-color: #9C89FF;
   color: #fff;
 }
+body .wrapper header div button.profile {
+  border: none;
+  width: auto;
+  border-radius: 0px;
+  background-color: transparent;
+}
+body .wrapper header div button.profile img {
+  border-radius: 50%;
+}
 body .wrapper header div a.switch {
   width: 154px;
   color: #fff;
@@ -183,15 +192,6 @@ body .wrapper header div a.switch:hover {
   color: #9C89FF;
   background-color: #fff;
   opacity: 1;
-}
-body .wrapper header div button.profile {
-  border: none;
-  width: auto;
-  border-radius: 0px;
-  background-color: transparent;
-}
-body .wrapper header div button.profile img {
-  border-radius: 50%;
 }
 body .wrapper > section {
   padding: 128px 60px 0px 330px;
@@ -490,7 +490,7 @@ body .wrapper > section .product_content > div .products_table tbody tr td:last-
   border: none;
   color: #CAC0FF;
   font: 15px/17px roboto_regular, sans-serif;
-  transition: .21s;
+  transition: 0.21s;
   display: inline-block;
   vertical-align: top;
   margin: 19px 10px 0px 0px;
@@ -715,7 +715,7 @@ body .wrapper > section > div .products_table tbody tr td:last-child form .edit_
   border: none;
   color: #CAC0FF;
   font: 15px/17px roboto_regular, sans-serif;
-  transition: .21s;
+  transition: 0.21s;
   display: inline-block;
   vertical-align: top;
   margin: 19px 10px 0px 0px;
@@ -930,6 +930,7 @@ body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) .uploa
   background-color: #fff;
   transition: 0.21s;
   margin-right: 13px;
+  display: inline-block;
 }
 body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) .upload_image:hover {
   background-color: #F3F1FF;
@@ -1095,7 +1096,7 @@ body .form_modal .modal-dialog .modal-content form > button[type=button] {
   overflow: hidden;
   padding-right: 15px;
 }
-.edit_product{
+.edit_product {
   width: 90px;
   height: 37px;
   border-radius: 10px;
@@ -1106,7 +1107,7 @@ body .form_modal .modal-dialog .modal-content form > button[type=button] {
   bottom: 10px;
   right: 30px;
 }
-.delete_product{
+.delete_product {
   color: #474B67;
   border: none;
   background: none;
@@ -1114,7 +1115,7 @@ body .form_modal .modal-dialog .modal-content form > button[type=button] {
   bottom: 12px;
   right: 7px;
 }
-.delete_product:hover{
+.delete_product:hover {
   color: #5F72FF;
 }
 .profile_dropdown {
@@ -1129,6 +1130,6 @@ body .form_modal .modal-dialog .modal-content form > button[type=button] {
   left: -55px !important;
   background: #2A2D3E;
 }
-.admin_dropdown a{
+.admin_dropdown a {
   color: #FFFFFF;
 }
