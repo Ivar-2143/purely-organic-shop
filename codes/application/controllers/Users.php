@@ -57,7 +57,7 @@ class Users extends CI_Controller{
 	}
 	public function admin_products(){
 		$this->authenticate();
-		$this->load->view('users/admin/admin_orders');
+		$this->load->view('users/admin/admin_products');
 	}
 	public function authenticate(){
 		if(!$this->session->userdata('user')){

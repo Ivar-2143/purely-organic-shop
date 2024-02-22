@@ -57,6 +57,9 @@ $route['signup'] = 'users/signup';
 $route['signup/process'] = 'users/validate_signup';
 
 $route['admin'] = 'users/admin';
+$route['admin/orders'] = 'users/admin_orders';
+$route['admin/products'] = 'users/admin_products';
+
 $route['security/csrf'] = 'users/csrf';
 
 $route['404_override'] = '';
