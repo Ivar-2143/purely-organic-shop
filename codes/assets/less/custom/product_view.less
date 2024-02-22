@@ -288,6 +288,7 @@ body {
                                 top: -2px;
                                 width: 245px;
                                 height: 202px;
+                                object-fit: cover;
                             }
 
                             h3 {
@@ -341,16 +342,22 @@ body {
         }
         #success_modal {
             .modal-dialog {
-                max-width: 557px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 557px;
                 .modal-content {
                     position: relative;
                     button {
                         width: 14px;
                         height: 14px;
+                        background: none;
                         background-image: url("../../images/close.svg");
                         position: absolute;
                         right: 32px;
                         top: 44px;
+                        border: none;
                     }
                     h3 {
                         font: 18px/32px roboto_medium, sans-serif;
@@ -370,4 +377,13 @@ body {
             }
         }
     }
+}
+.added_to_cart{
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    color: #7D7D7D;
+    padding: 14px 45px;
+    position: absolute;
+    top: 50px;
+    margin-left: 50px;
 }

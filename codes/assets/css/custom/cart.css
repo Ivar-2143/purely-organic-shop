@@ -189,7 +189,7 @@ body .wrapper > section > section .cart_items_form > ul > li > div button {
   background-color: #fff;
   color: #A1A1A1;
 }
-body .wrapper > section > section .cart_items_form > ul > li > div .remove { /* changed to .remove */
+body .wrapper > section > section .cart_items_form > ul > li > div button.remove {
   border-color: #E98D8D;
   color: #E98D8D;
 }

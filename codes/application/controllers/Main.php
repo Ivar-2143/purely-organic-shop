@@ -13,6 +13,9 @@ class Main extends CI_Controller {
 	public function register(){
 		$this->load->view('register');
 	}
+	public function admin(){
+		
+	}
 	public function authenticate(){
 		if(!$this->session->userdata('user')){
 			redirect('login');

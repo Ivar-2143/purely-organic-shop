@@ -293,6 +293,7 @@ body .form_modal .modal-dialog .modal-content form ul {
 }
 body .form_modal .modal-dialog .modal-content form ul li {
   position: relative;
+  list-style: none;
 }
 body .form_modal .modal-dialog .modal-content form ul li:nth-child(3),
 body .form_modal .modal-dialog .modal-content form ul li:nth-child(4) {
@@ -506,4 +507,26 @@ body .popover_overlay {
 }
 .show_popover_overlay {
   overflow: hidden;
+}
+.notif {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  vertical-align: middle;
+  padding: 8px 16px;
+  min-width: 312px;
+  border-radius: 4px;
+  line-height: 32px;
+  box-shadow: 0 0 8px 4px rgba(120, 113, 108, 0.26);
+}
+.notif-success::before {
+  width: 33px;
+  height: 33px;
+  scale: 0.8;
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  background-image: url("../../images/check.svg");
+  margin-right: 12px;
 }

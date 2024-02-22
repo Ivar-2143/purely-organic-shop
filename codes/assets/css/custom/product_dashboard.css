@@ -180,6 +180,9 @@ body .wrapper > section > div > ul > li a .rating li {
   vertical-align: top;
   width: 13px;
 }
+body .wrapper > section > div > ul > li a .rating li.blank {
+  background-position: 100% 50%;
+}
 body .wrapper > section > div > ul > li a .category {
   display: inline-block;
   vertical-align: top;
