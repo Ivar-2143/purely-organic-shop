@@ -76,7 +76,8 @@ body .wrapper form ul li:nth-child(2) {
   display: inline-block;
   vertical-align: top;
 }
-body .wrapper form ul li input {
+body .wrapper form ul li input,
+body .wrapper form ul li input.error {
   background-color: #fff !important;
   border-radius: 6px;
   border: 1px solid #DAD3FF;
@@ -87,12 +88,16 @@ body .wrapper form ul li input {
   width: 100%;
 }
 body .wrapper form ul li input:focus,
-body .wrapper form ul li input:valid {
+body .wrapper form ul li input.error:focus,
+body .wrapper form ul li input:valid,
+body .wrapper form ul li input.error:valid {
   border-color: #9C89FF;
   padding: 0px 0px 0px 19px;
 }
 body .wrapper form ul li input:focus + label,
-body .wrapper form ul li input:valid + label {
+body .wrapper form ul li input.error:focus + label,
+body .wrapper form ul li input:valid + label,
+body .wrapper form ul li input.error:valid + label {
   color: #78716C;
   left: 12px;
   top: -12px;
