@@ -6,6 +6,11 @@ class Users extends CI_Controller{
 	}
     public function index(){
 		$this->authenticate();
+		$user = $this->session->userdata('user');
+		if($user['access_level'] == 9){
+			redirect('admin');
+		}
+		$this->load->view('users/catalogue');
 	}
 	public function login(){
 		// echo "Auth";
@@ -27,13 +32,36 @@ class Users extends CI_Controller{
 		}
 		redirect('/signup');
 	}
+	public function validate_login(){
+		$user = $this->User->get_by_email($this->input->post('email'));
+		if($user){
+			$encrypted_password = md5($this->input->post('password').''.$user['salt']);
+			if($user['password'] == $encrypted_password){
+				$user['user_id'] = $user['id'];
+				$user['access_level'] = $user['access_level'];
+				$this->session->set_userdata('user',$user);
+				redirect('/');
+			}
+		}
+		$message = '<span class="notif notif-error">Invalid email or password</span>';
+		$this->session->set_flashdata('login',$message);
+		redirect('login');
+	}
 	public function admin(){
-		
+		$this->authenticate();
+		redirect('admin/orders');
+	}
+	public function admin_orders(){
+		$this->authenticate();
+		$this->load->view('users/admin/admin_orders');
+	}
+	public function admin_products(){
+		$this->authenticate();
+		$this->load->view('users/admin/admin_orders');
 	}
 	public function authenticate(){
 		if(!$this->session->userdata('user')){
 			redirect('login');
-			// echo "Auth";
 		}
 	}
     public function csrf(){

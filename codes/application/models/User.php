@@ -1,6 +1,26 @@
 <?php
 class User extends CI_Model{
     private $datetime_format = 'Y-m-d, H:i:s';
+    public function get_by_email($email){
+        return $this->db->query("SELECT * FROM users WHERE email = ?", array($this->security->xss_clean($email)))->row_array();
+    }
+    public function create($form_data){
+        $salt = bin2hex(openssl_random_pseudo_bytes(22));
+        $encrypted_password = md5($form_data['password'].''.$salt);
+        $users = $this->db->query("SELECT COUNT(id) as count FROM users")->row_array();
+        $access_level = 0;
+        if($users['count'] == 0){
+            $access_level = 9;
+        }
+        $query = "INSERT INTO users (first_name, last_name, email, password, salt, access_level, created_at, updated_at)
+            VALUES (?,?,?,?,?,?,?,?)";
+        $values = array(
+            $form_data['first_name'],$form_data['last_name'],$form_data['email'],
+            $encrypted_password, $salt, $access_level,
+            date($this->datetime_format), date($this->datetime_format)
+        );
+        return $this->db->query($query,$values);
+    }
     public function validate_fields(){
         $fields = array(
             'first_name',
@@ -34,24 +54,6 @@ class User extends CI_Model{
             $data[$key] = $this->security->xss_clean($value);
         }
         return $data;
-
-    }
-    public function create($form_data){
-        $salt = bin2hex(openssl_random_pseudo_bytes(22));
-        $encrypted_password = md5($form_data['password'].''.$salt);
-        $users = $this->db->query("SELECT COUNT(id) as count FROM users")->row_array();
-        $access_level = 0;
-        if($users['count'] == 0){
-            $access_level = 9;
-        }
-        $query = "INSERT INTO users (first_name, last_name, email, password, salt, access_level, created_at, updated_at)
-            VALUES (?,?,?,?,?,?,?,?)";
-        $values = array(
-            $form_data['first_name'],$form_data['last_name'],$form_data['email'],
-            $encrypted_password, $salt, $access_level,
-            date($this->datetime_format), date($this->datetime_format)
-        );
-        return $this->db->query($query,$values);
     }
 }
 ?>

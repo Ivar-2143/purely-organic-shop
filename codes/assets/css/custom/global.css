@@ -518,6 +518,8 @@ body .popover_overlay {
   min-width: 312px;
   border-radius: 4px;
   line-height: 32px;
+}
+.notif-success {
   box-shadow: 0 0 8px 4px rgba(120, 113, 108, 0.26);
 }
 .notif-success::before {
@@ -528,5 +530,18 @@ body .popover_overlay {
   display: inline-block;
   vertical-align: top;
   background-image: url("../../images/check.svg");
+  margin-right: 12px;
+}
+.notif-error {
+  box-shadow: 0 0 8px 4px rgba(248, 79, 79, 0.26);
+}
+.notif-error::before {
+  width: 33px;
+  height: 33px;
+  scale: 0.8;
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  background-image: url("../../images/danger.svg");
   margin-right: 12px;
 }
