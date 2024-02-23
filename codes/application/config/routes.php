@@ -57,6 +57,7 @@ $route['signup'] = 'users/signup';
 $route['signup/process'] = 'users/validate_signup';
 
 $route['products'] = 'products';
+$route['categories'] = 'categories';
 
 $route['admin'] = 'users/admin';
 $route['admin/orders'] = 'users/admin_orders';
