@@ -966,13 +966,16 @@ body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) > ul l
   border-radius: 10px;
   display: block;
 }
+body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) > ul li img.active {
+  border: 3px solid #7971D9;
+}
 body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) > ul li .delete_image {
   width: 25px;
   height: 25px;
   background-image: url("../../images/close.svg");
   border: none;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 4px;
   background-repeat: no-repeat;
   background-position: 50%;
   position: absolute;
