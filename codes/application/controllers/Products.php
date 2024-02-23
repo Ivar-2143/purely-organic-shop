@@ -26,7 +26,8 @@ class Products extends CI_Controller{
             $form_data = $this->Product->clean_fields($this->input->post());
             $files = $this->Product->clean_file_names($this->Product->get_files());
             $this->Product->create($form_data,$files);
-            $this->load->view('partials/admin_row_products');
+            $data['products'] = $this->Product->fetch_all();
+            $this->load->view('partials/admin_row_products',$data);
         }
         if($action == 'remove_image'){
             $images = get_filenames(APPPATH.'../assets/images/uploads/');

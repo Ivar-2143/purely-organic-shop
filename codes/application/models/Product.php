@@ -5,6 +5,9 @@ class Product extends CI_Model{
         parent::__construct();
         $this->load->library('form_validation');
     }
+    public function fetch_all(){
+        return $this->db->query("SELECT products.*, product_categories.name as category FROM products LEFT JOIN product_categories ON products.category_id = product_categories.id")->result_array();
+    }
     public function create($form_data,$files){
         $this->create_directory($form_data['category'],$form_data['product_name']);
         $this->copy_files($form_data['category'],$form_data['product_name'],$files);
@@ -13,7 +16,7 @@ class Product extends CI_Model{
         $values = array(
             $form_data['product_name'],
             $form_data['price'],
-            $form_data['inventory'],
+            $form_data['inventory'],    
             $form_data['description'],
             $form_data['category'], 
             json_encode($files),
@@ -54,7 +57,10 @@ class Product extends CI_Model{
         return get_filenames(APPPATH.'..\\assets\\images\\uploads\\');
     }
     public function create_directory($category,$name){
-        mkdir(APPPATH.'..\\assets\\images\\products\\'.$category.'\\'.$name.'\\',0755);
+        $dir = APPPATH.'..\\assets\\images\\products\\'.$category.'\\'.$name;
+        if(!file_exists($dir)){
+            mkdir($dir.'\\',0755);
+        }
     }
     public function copy_files($category,$name,$files){
         $from = APPPATH.'..\\assets\\images\\uploads\\';

@@ -62,6 +62,7 @@ $(document).ready(function() {
                 let form_data_action = $('.form_data_action').val();
                 populate_csrf();
                 form.data('submitEnabled', true);
+                // $('.error-message').html(res);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
                     let isValid = true;
                     $('.error-message').children().remove();
