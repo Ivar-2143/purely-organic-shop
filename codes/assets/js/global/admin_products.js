@@ -63,15 +63,22 @@ $(document).ready(function() {
                 populate_csrf();
                 form.data('submitEnabled', true);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
-                    console.log("RES:" + res);
-                    if(parseInt(res) == 0) {
-                        $(".product_content").html(res);
-                        resetAddProductForm();
-                        $("#add_product_modal").modal("hide");
+                    let isValid = true;
+                    $('.error-message').children().remove();
+                    if($(res).hasClass('error')) {
+                        $('.error-message').html(res);
+                        isValid = false;
                     }
-                    else {
+                    if($('.image_preview_list').children('li').length < 1){
                         $(".image_label").html("Upload Images (4 Max) <span>* Please add an image.</span>");
-                    };
+                        isValid = false;
+                    }
+                    if(!isValid){
+                        return false;
+                    }
+                    $(".product_content").html(res);
+                    resetAddProductForm();
+                    $("#add_product_modal").modal("hide");
                 }
                 else if(form_data_action == "upload_image" || form_data_action == "remove_image" || form_data_action == "mark_as_main") {
                     $(".image_preview_list").html(res);
@@ -87,7 +94,7 @@ $(document).ready(function() {
     }); 
 
     $("body").on("submit", ".categories_form", function() {
-        filterProducts(form)
+        filterProducts(form)                
         return false;
     });
 
@@ -100,7 +107,7 @@ $(document).ready(function() {
         button.closest("ul").find(".active").removeClass("active");
         button.addClass("active");
 
-        filterProducts(form);
+        filterProducts(form);   
 
         return false;
     });
@@ -136,15 +143,18 @@ $(document).ready(function() {
     });
 
     populate_csrf();
+    populate_category_options();
 });
 
 function resetAddProductForm() {
+    populate_category_options();
     $(".add_product_form").find("textarea, input[name=product_name], input[name=price], input[name=inventory]").attr("value", "").text("");
-    $('select[name=categories]').find("option").removeAttr("selected").closest("select").val("1").selectpicker('refresh');
+    // $('select[name=categories]').find("option").removeAttr("selected").closest("select").val("1").selectpicker('refresh');
     $(".add_product_form")[0].reset();
     $(".image_label").find("span").remove();
     $(".image_preview_list").children().remove();
     $("#add_product_modal").find("h2").text("Add a Product");
+    $('.error-message').children().remove();
 };
 
 function filterProducts(form) {
@@ -158,4 +168,15 @@ function populate_csrf(){
     $.get('http://localhost.organic-shop/users/csrf',function(res){
         $('#csrf').html(res);
     });
+}
+
+function populate_category_options(){
+    $.get('http://localhost.organic-shop/categories/get_options',function(res){
+        $('select.category-picker').html(res);
+        // $('.selectpicker').first().attr('selected',TRUE);
+        $('.selectpicker').selectpicker('refresh');
+        $('.selectpicker').selectpicker('selectAll');
+        // $('.selectpicker').val(1);
+        $('.selectpicker').selectpicker('refresh');
+    })
 }

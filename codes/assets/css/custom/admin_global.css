@@ -843,6 +843,7 @@ body .form_modal .modal-dialog .modal-content {
   text-align: right;
   position: relative;
   border-radius: 23px;
+  overflow: hidden;
 }
 body .form_modal .modal-dialog .modal-content .close_modal {
   background-color: transparent;
@@ -858,6 +859,12 @@ body .form_modal .modal-dialog .modal-content .close_modal {
 body .form_modal .modal-dialog .modal-content form {
   position: relative;
   text-align: right;
+}
+body .form_modal .modal-dialog .modal-content form p.error {
+  background-color: #F84F4F;
+  margin: 0;
+  color: #FFFFFF;
+  text-align: center;
 }
 body .form_modal .modal-dialog .modal-content form h2 {
   color: #7D7D7D;

@@ -3,6 +3,7 @@ class Users extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('User');
+		$this->load->model('Category');
 	}
     public function index(){
 		$this->authenticate();
@@ -57,7 +58,8 @@ class Users extends CI_Controller{
 	}
 	public function admin_products(){
 		$this->authenticate();
-		$this->load->view('users/admin/admin_products');
+		$data['categories'] = $this->Category->fetch_all_with_product_count();
+		$this->load->view('users/admin/admin_products',$data);
 	}
 	public function authenticate(){
 		if(!$this->session->userdata('user')){

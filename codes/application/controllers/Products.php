@@ -13,12 +13,20 @@ class Products extends CI_Controller{
         $action = $this->input->post('form_action',TRUE);
         // var_dump($_FILES);
         // var_dump($this->input->post());
+        // var_dump($action);
         $data['main_image'] = $this->input->post('main_image',TRUE);
         if($action == 'add_product'){
             $errors = $this->Product->validate_add_product($this->input->post());
             if($errors){
                 echo $errors;
+                return;
+            }else if(count($this->Product->get_files()) < 1){
+                return;
             }
+            $form_data = $this->Product->clean_fields($this->input->post());
+            $files = $this->Product->clean_file_names($this->Product->get_files());
+            $this->Product->create($form_data,$files);
+            $this->load->view('partials/admin_row_products');
         }
         if($action == 'remove_image'){
             $images = get_filenames(APPPATH.'../assets/images/uploads/');
@@ -28,13 +36,13 @@ class Products extends CI_Controller{
             $this->load->view('partials/uploaded_images',$data);
         }
         else if($action == 'upload_image'){
-            if($_FILES['image']['name']){
+            if($_FILES['image']['name'] && !empty($_FILES['image']['tmp_name']) && $_FILES['image']['size'] < (1024 * 10000)){
                 $file_name = $_FILES['image']['name'];
                 $file_path = $_FILES['image']['tmp_name'];
                 $save_path = APPPATH.'..\\assets\\images\\uploads\\'.$file_name;
                 copy($file_path, $save_path);
             }
-            $data['images']= get_filenames(APPPATH.'../assets/images/uploads/');
+            $data['images'] = get_filenames(APPPATH.'../assets/images/uploads/');
             // var_dump($data);
             $this->load->view('partials/uploaded_images',$data);
         }else if($action == 'mark_as_main'){

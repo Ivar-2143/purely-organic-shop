@@ -62,36 +62,7 @@
                 <?php   $this->load->view('partials/csrf_input')?>
                 <h3>Categories</h3>
                 <ul>
-                    <li>
-                        <button type="submit" class="active">
-                            <span>36</span><img src="../assets/images/all_products.png" alt="#"><h4>All Products</h4>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit">
-                            <span>36</span><img src="../assets/images/Vegetables.png" alt="#"><h4>Vegetables</h4>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit">
-                            <span>36</span><img src="../assets/images/Fruits.png" alt="#"><h4>Fruits</h4>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit">
-                            <span>36</span><img src="../assets/images/Meat.png" alt="#"><h4>Pork</h4>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit">
-                            <span>36</span><img src="../assets/images/Grains.png" alt="#"><h4>Beef</h4>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit">
-                            <span>36</span><img src="../assets/images/Dairy.png" alt="#"><h4>Chicken</h4>
-                        </button>
-                    </li>
+<?php               $this->load->view('partials/category_nav',$categories)?>
                 </ul>
             </form>
             <div>
@@ -381,6 +352,7 @@
                 <div class="modal-content">
                     <button data-dismiss="modal" aria-label="Close" class="close_modal"></button>
                     <form class="add_product_form" data-modal-action="0" action="<?=base_url('products/process')?>" method="post" enctype="multipart/form-data">
+                        <div class="error-message"></div>
                         <h2>Add a Product</h2>
                         <ul>
                             <li>
@@ -393,16 +365,11 @@
                             </li>
                             <li>
                                 <label>Category</label>
-                                <select class="selectpicker" name="category">
-                                    <option>Vegetables</option>
-                                    <option>Fruits</option>
-                                    <option>Pork</option>
-                                    <option>Beef</option>
-                                    <option>Chicken</option>
+                                <select class="selectpicker category-picker" name="category">
                                 </select>
                             </li>
                             <li>
-                                <input type="number" name="price" value="1">
+                                <input type="number" name="price" value="1" step="0.01">
                                 <label>Price</label>
                             </li>
                             <li>
@@ -417,11 +384,11 @@
                                 <ul class="image_preview_list">
                                 </ul>
                                 <input class="image_input" type="file" name="image" accept="image/*">
-                                <input name="image_index" type="hidden" value="add_product">
+                                <input name="image_index" type="hidden" value="">   
                             </li>
                         </ul>
                         <input type="hidden" id="csrf">
-                        <input class="form_data_action" name="form_action" type="hidden" value="">
+                        <input class="form_data_action" name="form_action" type="hidden" value="add_product">
                         <button type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit">Save</button>
                     </form>
