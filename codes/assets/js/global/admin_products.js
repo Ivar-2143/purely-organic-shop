@@ -34,6 +34,7 @@ $(document).ready(function() {
 
     /*  */
     $("body").on("change", "input[name=main_image]", function() {
+        console.log("Main Image: "+$(this).val());
         $("input[name=image_index]").val($(this).val());
         $(".form_data_action").val("mark_as_main");
         $(".add_product_form").trigger("submit");
@@ -44,7 +45,6 @@ $(document).ready(function() {
         $(".add_product_form").trigger("submit");
         $(".add_product_form").attr("data-modal-action", 0);
         $(".form_data_action").find("textarea").addClass("jhaver");
-
     });
 
     $("body").on("submit", ".add_product_form", function() {
@@ -63,6 +63,7 @@ $(document).ready(function() {
                 populate_csrf();
                 form.data('submitEnabled', true);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
+                    console.log("RES:" + res);
                     if(parseInt(res) == 0) {
                         $(".product_content").html(res);
                         resetAddProductForm();
@@ -72,7 +73,7 @@ $(document).ready(function() {
                         $(".image_label").html("Upload Images (4 Max) <span>* Please add an image.</span>");
                     };
                 }
-                else if(form_data_action == "upload_image" || form_data_action == "remove_image") {
+                else if(form_data_action == "upload_image" || form_data_action == "remove_image" || form_data_action == "mark_as_main") {
                     $(".image_preview_list").html(res);
                 }
                 else if(form_data_action == "reset_form") {

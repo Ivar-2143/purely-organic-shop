@@ -4,6 +4,7 @@ class Products extends CI_Controller{
         parent::__construct();
         // $this->load->model('Product');
         $this->load->helper('file');
+        $this->load->model('Product');
     }
     public function index(){
 
@@ -12,6 +13,13 @@ class Products extends CI_Controller{
         $action = $this->input->post('form_action',TRUE);
         // var_dump($_FILES);
         // var_dump($this->input->post());
+        $data['main_image'] = $this->input->post('main_image',TRUE);
+        if($action == 'add_product'){
+            $errors = $this->Product->validate_add_product($this->input->post());
+            if($errors){
+                echo $errors;
+            }
+        }
         if($action == 'remove_image'){
             $images = get_filenames(APPPATH.'../assets/images/uploads/');
             $image_index = $this->input->post('image_index',TRUE);
@@ -28,6 +36,10 @@ class Products extends CI_Controller{
             }
             $data['images']= get_filenames(APPPATH.'../assets/images/uploads/');
             // var_dump($data);
+            $this->load->view('partials/uploaded_images',$data);
+        }else if($action == 'mark_as_main'){
+            $data['main_image'] = $this->input->post('image_index',TRUE);
+            $data['images'] = get_filenames(APPPATH.'..\\assets\\images\\uploads\\');
             $this->load->view('partials/uploaded_images',$data);
         }
         else if($action == 'reset_form'){

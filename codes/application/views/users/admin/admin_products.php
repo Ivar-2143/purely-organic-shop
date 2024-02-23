@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
 
-    <script src="../assets/js/vendor/jquery.min.js"></script>
-    <script src="../assets/js/vendor/popper.min.js"></script>
-    <script src="../assets/js/vendor/bootstrap.min.js"></script>
-    <script src="../assets/js/vendor/bootstrap-select.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/jquery.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/popper.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>assets/js/vendor/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="../assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/vendor/bootstrap-select.min.css">
 
@@ -380,11 +380,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <button data-dismiss="modal" aria-label="Close" class="close_modal"></button>
-                    <form class="add_product_form" action="<?=base_url('products/process')?>" method="post" enctype="multipart/form-data">
+                    <form class="add_product_form" data-modal-action="0" action="<?=base_url('products/process')?>" method="post" enctype="multipart/form-data">
                         <h2>Add a Product</h2>
                         <ul>
                             <li>
-                                <input type="text" name="prouct_name">
+                                <input type="text" name="product_name">
                                 <label>Product Name</label>
                             </li>
                             <li>
@@ -393,7 +393,7 @@
                             </li>
                             <li>
                                 <label>Category</label>
-                                <select class="selectpicker">
+                                <select class="selectpicker" name="category">
                                     <option>Vegetables</option>
                                     <option>Fruits</option>
                                     <option>Pork</option>
@@ -410,16 +410,14 @@
                                 <label>Inventory</label>
                             </li>
                             <li>
-                                <label>Upload Images (5 Max)</label>
+                                <label class="image_label">Upload Images (4 Max)</label>
                                 <ul>
-                                    <li>
-                                        <button type="button" class="upload_image"></button>
-                                    </li>
+                                    <li><button type="button" class="upload_image"></button></li>
                                 </ul>
                                 <ul class="image_preview_list">
                                 </ul>
                                 <input class="image_input" type="file" name="image" accept="image/*">
-                                <input name="image_index" type="hidden" value="">
+                                <input name="image_index" type="hidden" value="add_product">
                             </li>
                         </ul>
                         <input type="hidden" id="csrf">

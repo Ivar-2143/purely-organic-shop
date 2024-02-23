@@ -991,6 +991,7 @@ body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) > ul l
   cursor: pointer;
   width: 100%;
   height: 46px;
+  position: relative;
 }
 body .form_modal .modal-dialog .modal-content form > ul > li:nth-child(6) > ul li label input {
   margin-right: 7px;
