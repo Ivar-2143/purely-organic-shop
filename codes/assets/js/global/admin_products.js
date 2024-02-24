@@ -39,6 +39,11 @@ $(document).ready(function() {
         $(".form_data_action").val("mark_as_main");
         $(".add_product_form").trigger("submit");
     });
+    $("body").on('show.bs.modal','#add_product_modal', function () {
+        if($('.form_data_action').val() == 'edit_product'){
+            alert('Modal Open');
+        }
+    })
 
     $("body").on("hidden.bs.modal", "#add_product_modal", function() {
         $(".form_data_action").val("reset_form");
@@ -51,6 +56,8 @@ $(document).ready(function() {
         let form = $(this);
         if (form.data('submitEnabled') == false) { return false; }
         form.data('submitEnabled', false);
+        let form_data_action = $('.form_data_action').val();
+        console.log(form);
         $.ajax({
             url: $(this).attr("action"),
             type: 'POST',
@@ -59,8 +66,8 @@ $(document).ready(function() {
             cache: false,
             processData:false,
             success: function(res) {
-                let form_data_action = $('.form_data_action').val();
                 populate_csrf();
+                console.log('populating CSRF');
                 form.data('submitEnabled', true);
                 // $('.error-message').html(res);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
@@ -79,7 +86,13 @@ $(document).ready(function() {
                     }
                     $(".product_content").html(res);
                     resetAddProductForm();
-                    $("#add_product_modal").modal("hide");
+                    populate_category_nav();
+                    $.get('http://localhost.organic-shop/users/csrf',function(res){
+                        $('.csrf').replaceWith(res);
+                    }).done(function(){
+                        $("#add_product_modal").modal("hide");
+                    });
+                    
                 }
                 else if(form_data_action == "upload_image" || form_data_action == "remove_image" || form_data_action == "mark_as_main") {
                     $(".image_preview_list").html(res);
@@ -89,21 +102,26 @@ $(document).ready(function() {
                 };
                 ($(".add_product_form").attr("data-modal-action") == 0) ? $(".form_data_action").val("add_product") : $(".form_data_action").val("edit_product");
                 ($(".image_preview_list").children('li').length >= 4) ? $(".upload_image").parent().addClass("hidden") : $(".upload_image").parent().removeClass("hidden");
+            },
+            error: function(data){
+                console.log(data);
             }
         });
         return false;
     }); 
 
     $("body").on("submit", ".categories_form", function() {
-        filterProducts(form)                
-        return false;
+        filterProducts($(this));         
+        return false;    
     });
 
     $("body").on("click", ".categories_form button", function() {
         let button = $(this);
         let form = button.closest("form");
-
+        // console.log(button.attr('data-category'));
+        // console.log(button.attr('data-category-name'));
         form.find("input[name=category]").val(button.attr("data-category"));
+        $("input[name=category_state]").val(button.attr("data-category"));
         form.find("input[name=category_name]").val(button.attr("data-category-name"));
         button.closest("ul").find(".active").removeClass("active");
         button.addClass("active");
@@ -118,37 +136,45 @@ $(document).ready(function() {
         $(".categories_form").find(".active").removeClass("active");
     });
 
-    $("body").on("submit", ".delete_product_form", function() {
-        filterProducts($(this));
+    $("body").on("submit", ".delete_product_form", function(e) {
         $("body").removeClass("show_popover_overlay");
         $(".popover_overlay").fadeOut();
+        // e.preventDefault();
+        filterProducts($(this));
+        $('.categories_form').submit();
+        populate_category_nav();
+        populate_csrf();
         return false;
     });
 
     $("body").on("click", ".edit_product", function() {
+        console.log('ID: ' + $(this).val());
         $("input[name=edit_product_id]").val($(this).val());
-        $("#add_product_modal").modal("show");
         $(".form_data_action").val("edit_product");
+        $("#add_product_modal").modal("show");
         $(".add_product_form").attr("data-modal-action", 1);
         $("#add_product_modal").find("h2").text("Edit product #" + $(this).val());
     });
 
     $("body").on("submit", ".get_edit_data_form", function() {
         let form = $(this);
+        if (form.data('submitEnabled') == false) { return false; }
+        form.data('submitEnabled', false);
         $.post(form.attr("action"), form.serialize(), function(res) {
+            form.data('submitEnabled', true);
             $(".add_product_form").find(".form_control").html(res);
             $('.selectpicker').selectpicker('refresh');
         });
-
         return false;
     });
 
     populate_csrf();
+    populate_category_nav();
     populate_category_options();
 });
 
 function resetAddProductForm() {
-    populate_category_options();
+    // populate_csrf();
     $(".add_product_form").find("textarea, input[name=product_name], input[name=price], input[name=inventory]").attr("value", "").text("");
     // $('select[name=categories]').find("option").removeAttr("selected").closest("select").val("1").selectpicker('refresh');
     $(".add_product_form")[0].reset();
@@ -159,20 +185,27 @@ function resetAddProductForm() {
 };
 
 function filterProducts(form) {
+    if (form.data('submitEnabled') == false) { return false; }
+    form.data('submitEnabled', false);
     $.post(form.attr("action"), form.serialize(), function(res) {
+        console.log('filtering and populating csrf');
+        populate_csrf();  
         $(".product_content").html(res);
-        console.log(res);
+        // console.log(res);
+        form.data('submitEnabled', true);
     });
+    return false;
 }
 
 function populate_csrf(){
     $.get('http://localhost.organic-shop/users/csrf',function(res){
-        $('#csrf').html(res);
+        $('.csrf').replaceWith(res);
     });
 }
 
 function populate_category_options(){
     $.get('http://localhost.organic-shop/categories/get_options',function(res){
+        // populate_csrf();
         $('select.category-picker').html(res);
         // $('.selectpicker').first().attr('selected',TRUE);
         $('.selectpicker').selectpicker('refresh');
@@ -180,4 +213,19 @@ function populate_category_options(){
         // $('.selectpicker').val(1);
         $('.selectpicker').selectpicker('refresh');
     })
+}
+
+function populate_category_nav(){
+    let id = $('input[name="category"]').val();
+    $.get("http://localhost.organic-shop/categories/get_category_nav/"+id,function(res){
+        populate_csrf();    
+        $('.category_nav').html(res);
+    });
+    return;
+}
+
+function update_nav_and_products(){
+    $('.categories_form').submit();
+    populate_category_nav();
+    return;
 }
