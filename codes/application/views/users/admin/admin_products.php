@@ -127,6 +127,7 @@
                             </li>
                         </ul>
                         <input type="hidden" class="csrf">
+                        <input type="hidden" name="edit_product_id" value="">
                         <input type="hidden" name="category_state"  value="0">
                         <input class="form_data_action" name="form_action" type="hidden" value="add_product">
                         <button type="button" data-dismiss="modal" aria-label="Close">Cancel</button>

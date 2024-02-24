@@ -9,6 +9,21 @@ class Products extends CI_Controller{
     public function index(){
 
     }
+    public function get_product($id){
+        $product = $this->Product->fetch_by_id($id);
+        echo json_encode($product);
+    }
+    public function get_editing_product_images($category_id,$name){
+        // var_dump($category_id);
+        // var_dump(str_replace('%20',' ',$name));
+        $this->Product->copy_uploaded_images($category_id,str_replace('%20',' ',$name));
+        $data['images'] = $this->Product->get_files();
+        $product = $this->Product->fetch_by_name(str_replace('%20',' ',$name));
+        $images = json_decode($product['image_links_json'],TRUE);
+        $data['main_image_name'] = $images['main_image'];
+            // var_dump($data);
+        $this->load->view('partials/uploaded_images',$data);
+    }
     public function process(){
         $action = $this->input->post('form_action',TRUE);
         // var_dump($_FILES);
@@ -16,7 +31,7 @@ class Products extends CI_Controller{
         // var_dump($action);
         $data['main_image'] = $this->input->post('main_image',TRUE);
         // echo "action"
-        if($action == 'add_product'){
+        if($action == 'add_product' || $action == 'edit_product'){
             $errors = $this->Product->validate_add_product($this->input->post());
             if($errors){
                 echo $errors;
@@ -26,7 +41,21 @@ class Products extends CI_Controller{
             }
             $form_data = $this->Product->clean_fields($this->input->post());
             $files = $this->Product->clean_file_names($this->Product->get_files());
-            $this->Product->create($form_data,$files);
+            if($action == 'add_product'){
+                $existing = $this->Product->fetch_by_name($form_data['product_name']);
+                if($existing){
+                    echo "<p class='error'>Product Name already exists!</p>";
+                    return;
+                }
+                $this->Product->create($form_data,$files);
+            }else{
+                $existing = $this->Product->fetch_by_name($form_data['product_name']);
+                if($existing['id'] != $form_data['edit_product_id']){
+                    echo "<p class='error'>Product Name already exists!</p>";
+                    return;
+                }
+                $this->Product->update($form_data,$files);
+            }
             $state = $this->input->post('category_state',TRUE);
             if($state < 1){
                 $data['products'] = $this->Product->fetch_all();

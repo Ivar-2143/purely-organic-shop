@@ -34,14 +34,29 @@ $(document).ready(function() {
 
     /*  */
     $("body").on("change", "input[name=main_image]", function() {
-        console.log("Main Image: "+$(this).val());
+        // console.log("Main Image: "+$(this).val());
         $("input[name=image_index]").val($(this).val());
         $(".form_data_action").val("mark_as_main");
         $(".add_product_form").trigger("submit");
     });
     $("body").on('show.bs.modal','#add_product_modal', function () {
         if($('.form_data_action').val() == 'edit_product'){
-            alert('Modal Open');
+            // alert('Modal Open');
+            let product_id = $('input[name=edit_product_id]').val();
+            // console.log(product_id);
+            $.get('http://localhost.organic-shop/products/get_product/'+product_id,function(res){
+                // console.log(res);
+                $('.add_product_form input[name=product_name]').val(res.name);
+                $('.add_product_form textarea[name=description]').val(res.description);
+                $('.add_product_form input[name=price]').val(res.price);
+                $('.add_product_form input[name=inventory]').val(res.stocks);
+                $('.add_product_form select[name=category]').val(res.category_id);
+                $('.selectpicker').selectpicker('refresh');
+                $.get('http://localhost.organic-shop/products/get_editing_product_images/'+res.category_id+'/'+res.name,function(res){
+                    $(".image_preview_list").html(res);
+                    ($(".image_preview_list").children('li').length >= 4) ? $(".upload_image").parent().addClass("hidden") : $(".upload_image").parent().removeClass("hidden");
+                })
+            }, 'json');
         }
     })
 
@@ -57,7 +72,7 @@ $(document).ready(function() {
         if (form.data('submitEnabled') == false) { return false; }
         form.data('submitEnabled', false);
         let form_data_action = $('.form_data_action').val();
-        console.log(form);
+        // console.log(form);
         $.ajax({
             url: $(this).attr("action"),
             type: 'POST',
@@ -67,7 +82,7 @@ $(document).ready(function() {
             processData:false,
             success: function(res) {
                 populate_csrf();
-                console.log('populating CSRF');
+                // console.log('populating CSRF');
                 form.data('submitEnabled', true);
                 // $('.error-message').html(res);
                 if(form_data_action == "add_product" || form_data_action == "edit_product") {
@@ -148,7 +163,7 @@ $(document).ready(function() {
     });
 
     $("body").on("click", ".edit_product", function() {
-        console.log('ID: ' + $(this).val());
+        // console.log('ID: ' + $(this).val());
         $("input[name=edit_product_id]").val($(this).val());
         $(".form_data_action").val("edit_product");
         $("#add_product_modal").modal("show");
@@ -176,6 +191,8 @@ $(document).ready(function() {
 function resetAddProductForm() {
     // populate_csrf();
     $(".add_product_form").find("textarea, input[name=product_name], input[name=price], input[name=inventory]").attr("value", "").text("");
+    $('.add_product_form select[name=category]').val(1);
+    $('.selectpicker').selectpicker('refresh');
     // $('select[name=categories]').find("option").removeAttr("selected").closest("select").val("1").selectpicker('refresh');
     $(".add_product_form")[0].reset();
     $(".image_label").find("span").remove();
@@ -188,7 +205,7 @@ function filterProducts(form) {
     if (form.data('submitEnabled') == false) { return false; }
     form.data('submitEnabled', false);
     $.post(form.attr("action"), form.serialize(), function(res) {
-        console.log('filtering and populating csrf');
+        // console.log('filtering and populating csrf');
         populate_csrf();  
         $(".product_content").html(res);
         // console.log(res);

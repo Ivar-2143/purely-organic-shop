@@ -23,6 +23,9 @@ class Product extends CI_Model{
     public function get_product_count(){
         return $this->db->query("SELECT count(id) as total_count FROM products")->row_array();
     }
+    public function fetch_by_name($name){
+        return $this->db->query("SELECT * FROM products WHERE name = ?", array($name))->row_array();
+    }
     public function create($form_data,$files){
         $this->create_directory($form_data['category'],$form_data['product_name']);
         $this->copy_files($form_data['category'],$form_data['product_name'],$files);
@@ -36,6 +39,33 @@ class Product extends CI_Model{
             $form_data['category'], 
             json_encode($files),
             date($this->datetime_format),date($this->datetime_format));
+        return $this->db->query($query,$values);
+    }
+    public function update($form_data,$files){
+        $editing_product = $this->fetch_by_id($form_data['edit_product_id']);
+        $this->remove_files($editing_product);
+        $this->create_directory($form_data['category'],$form_data['product_name']);
+        $this->copy_files($form_data['category'],$form_data['product_name'],$files);
+        $files['main_image'] = $files[$form_data['main_image']]; 
+        $query = "UPDATE products
+            SET 
+                name = ?, 
+                price = ?, 
+                stocks = ?, 
+                description = ?, 
+                category_id = ?, 
+                image_links_json = ?, 
+                updated_at = ?
+            WHERE id = ?";
+        $values = array(
+            $form_data['product_name'],
+            $form_data['price'],
+            $form_data['inventory'],    
+            $form_data['description'],
+            $form_data['category'], 
+            json_encode($files),
+            date($this->datetime_format),
+            $form_data['edit_product_id']);
         return $this->db->query($query,$values);
     }
     public function delete($id){
@@ -86,6 +116,14 @@ class Product extends CI_Model{
         foreach($files as $file){
             copy($from.$file,$to.$file);
             unlink($from.$file);
+        }
+    }
+    public function copy_uploaded_images($category,$name){
+        $to = APPPATH.'..\\assets\\images\\uploads\\';
+        $from = APPPATH.'..\\assets\\images\\products\\'.$category.'\\'.$name.'\\';
+        $files = get_filenames($from);
+        foreach($files as $file){
+            copy($from.$file,$to.$file);
         }
     }
     public function remove_files($product){
