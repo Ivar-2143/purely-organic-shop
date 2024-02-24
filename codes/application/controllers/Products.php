@@ -12,9 +12,10 @@ class Products extends CI_Controller{
     public function process(){
         $action = $this->input->post('form_action',TRUE);
         // var_dump($_FILES);
-        // var_dump($this->input->post());
+        // var_dump($this->input->post('category_state'));
         // var_dump($action);
         $data['main_image'] = $this->input->post('main_image',TRUE);
+        // echo "action"
         if($action == 'add_product'){
             $errors = $this->Product->validate_add_product($this->input->post());
             if($errors){
@@ -26,7 +27,13 @@ class Products extends CI_Controller{
             $form_data = $this->Product->clean_fields($this->input->post());
             $files = $this->Product->clean_file_names($this->Product->get_files());
             $this->Product->create($form_data,$files);
-            $data['products'] = $this->Product->fetch_all();
+            $state = $this->input->post('category_state',TRUE);
+            if($state < 1){
+                $data['products'] = $this->Product->fetch_all();
+            }else{
+                $data['products'] = $this->Product->fetch_by_category($state);
+            }
+            // var_dump($this->input->post());
             $this->load->view('partials/admin_row_products',$data);
         }
         if($action == 'remove_image'){
@@ -54,6 +61,23 @@ class Products extends CI_Controller{
         else if($action == 'reset_form'){
             delete_files(APPPATH. '..\\assets\\images\\uploads\\');
         }
+    }
+    public function remove($id){
+        $product = $this->Product->fetch_by_id($id);
+        $this->Product->remove_files($product);
+        $this->Product->delete_directory($product);
+        $this->Product->delete($id);
+        $data['products'] = $this->Product->fetch_all();
+        $this->load->view('partials/admin_row_products',$data);
+    }
+    public function category(){
+        $id = $this->input->post('category',TRUE);
+        if($id > 0){
+            $data['products'] = $this->Product->fetch_by_category($id);
+        }else{
+            $data['products'] = $this->Product->fetch_all();
+        }
+        $this->load->view('partials/admin_row_products',$data);
     }
 }
 ?>

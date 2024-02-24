@@ -8,6 +8,21 @@ class Product extends CI_Model{
     public function fetch_all(){
         return $this->db->query("SELECT products.*, product_categories.name as category FROM products LEFT JOIN product_categories ON products.category_id = product_categories.id")->result_array();
     }
+    public function fetch_by_id($id){
+        $query = "SELECT * FROM products WHERE id = ?";
+        return $this->db->query($query,array($id))->row_array();
+    }
+    public function fetch_by_category($id){
+        $query = "SELECT products.*, product_categories.name as category 
+                    FROM products 
+                    INNER JOIN product_categories 
+                        ON product_categories.id = products.category_id
+                    WHERE category_id = ?";
+        return $this->db->query($query, array($id))->result_array();
+    }
+    public function get_product_count(){
+        return $this->db->query("SELECT count(id) as total_count FROM products")->row_array();
+    }
     public function create($form_data,$files){
         $this->create_directory($form_data['category'],$form_data['product_name']);
         $this->copy_files($form_data['category'],$form_data['product_name'],$files);
@@ -22,6 +37,9 @@ class Product extends CI_Model{
             json_encode($files),
             date($this->datetime_format),date($this->datetime_format));
         return $this->db->query($query,$values);
+    }
+    public function delete($id){
+        return $this->db->query("DELETE FROM products WHERE id = ?",array($id));
     }
     public function validate_add_product(){
         $this->form_validation->set_error_delimiters('<p class="error">','</p>');
@@ -69,6 +87,19 @@ class Product extends CI_Model{
             copy($from.$file,$to.$file);
             unlink($from.$file);
         }
+    }
+    public function remove_files($product){
+        $directory = APPPATH.'..\\assets\\images\\products\\'.$product['category_id'].'\\'.$product['name'].'\\';
+        $files = get_filenames($directory);
+        foreach($files as $file){
+            unlink($directory.$file);
+        }
+        clearstatcache();
+    }
+    public function delete_directory($product){
+        $directory = APPPATH.'..\\assets\\images\\products\\'.$product['category_id'].'\\'.$product['name'];
+        rmdir($directory);
+        clearstatcache();
     }
 }
 ?>

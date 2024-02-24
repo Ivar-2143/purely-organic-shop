@@ -55,14 +55,16 @@
         </aside>
         <section>
             <form action="process.php" method="post" class="search_form">
+                <input type="hidden" class="csrf">
                 <input type="text" name="search" placeholder="Search Products">
             </form>
             <button class="add_product" data-toggle="modal" data-target="#add_product_modal">Add Product</button>
-            <form action="process.php" method="post" class="categories_form">
-                <?php   $this->load->view('partials/csrf_input')?>
+            <form action="<?=base_url('products/category')?>" method="post" class="categories_form">
+                <input type="hidden" class="csrf">
+                <input type="hidden" name="category" value="0">
+                <input type="hidden" name="category_name" value="All Products">
                 <h3>Categories</h3>
-                <ul>
-<?php               $this->load->view('partials/category_nav',$categories)?>
+                <ul class="category_nav">
                 </ul>
             </form>
             <div>
@@ -124,7 +126,8 @@
                                 <input name="image_index" type="hidden" value="">   
                             </li>
                         </ul>
-                        <input type="hidden" id="csrf">
+                        <input type="hidden" class="csrf">
+                        <input type="hidden" name="category_state"  value="0">
                         <input class="form_data_action" name="form_action" type="hidden" value="add_product">
                         <button type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit">Save</button>

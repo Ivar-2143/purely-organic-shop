@@ -15,10 +15,11 @@ foreach($products as $product){
         <td><span><?=rand(0,1000)?></span></td>
         <td>
             <span>
-                <button class="edit_product">Edit</button>
+                <button class="edit_product" value="<?=$product['id']?>">Edit</button>
                 <button class="delete_product">X</button>
             </span>
-            <form class="delete_product_form" action="process.php" method="post">
+            <form class="delete_product_form" action="<?=base_url('products/remove/'.$product['id'])?>" method="post">
+<?php           $this->load->view('partials/csrf_input')?>
                 <p>Are you sure you want to remove this item?</p>
                 <button type="button" class="cancel_remove">Cancel</button>
                 <button type="submit">Remove</button>
