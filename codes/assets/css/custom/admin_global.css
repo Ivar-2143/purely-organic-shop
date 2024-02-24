@@ -1144,3 +1144,9 @@ body .form_modal .modal-dialog .modal-content form > button[type=button] {
 .admin_dropdown a {
   color: #FFFFFF;
 }
+.logout_btn {
+  color: white;
+}
+.logout_btn:hover {
+  color: #2A2D3E;
+}

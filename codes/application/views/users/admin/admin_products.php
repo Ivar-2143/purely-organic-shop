@@ -42,7 +42,11 @@
             <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle profile_dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                 <div class="dropdown-menu admin_dropdown" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <form action="<?=base_url('users/logout')?>" method="post">
+                        <input type="hidden" class="csrf">
+                        <input type="submit" class="dropdown-item logout_btn" value="Logout">
+                    </form>
+                    <!-- <a class="dropdown-item logout_btn" href="login.html">Logout</a> -->
                 </div>
             </div>
         </header>

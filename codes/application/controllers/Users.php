@@ -21,6 +21,10 @@ class Users extends CI_Controller{
 	public function signup(){
 		$this->load->view('signup');
 	}
+	public function logout(){
+		$this->session->unset_userdata('user');
+		redirect('/');
+	}
 	public function validate_signup(){
 		$errors = $this->User->validate_fields();
 		if($errors){
