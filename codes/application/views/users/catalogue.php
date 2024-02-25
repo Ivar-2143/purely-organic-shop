@@ -15,16 +15,17 @@
         <link rel="stylesheet" href="../assets/css/vendor/bootstrap.min.css">
         <link rel="stylesheet" href="../assets/css/vendor/bootstrap-select.min.css">
 
+        <script src="<?=base_url('assets/js/global/global.js')?>"></script>
         <link rel="stylesheet" href="../assets/css/custom/global.css">
         <link rel="stylesheet" href="../assets/css/custom/product_dashboard.css">
     </head>
     <script>
         $(document).ready(function() {
-            $('form').on('submit', function(e) {
-                console.log('submitted');
-                e.preventDefault();
-                return false;
-            });
+            // $('form').on('submit', function(e) {
+            //     console.log('submitted');
+            //     e.preventDefault();
+            //     return false;
+            // });
             $('.categories').on('click',function(){
                 console.log($(this));
                 $('button.active').removeClass('active');
@@ -42,13 +43,7 @@
     </script>
     <body>
         <div class="wrapper">
-            <header>
-                <h1>Let’s order fresh items for you.</h1>
-                <div>
-                    <a class="signup_btn" data-toggle="modal" data-target="#signup_modal">Signup</a>
-                    <a class="login_btn"  data-toggle="modal" data-target="#login_modal">Login</a>
-                </div>
-            </header>
+<?php       $this->load->view('partials/customer_header',$user)?>
             <aside>
                 <a href="catalogue.html"><img src="../assets/images/organic_shop_logo.svg" alt="Organic Shop"></a>
                 <!-- <ul>
@@ -62,6 +57,7 @@
                 </form>
                 <a class="show_cart" href="cart.html">Cart (0)</a>
                 <form action="process.php" method="post" class="categories_form">
+<?php               $this->load->view('partials/csrf_input')?>
                     <h3>Categories</h3>
                     <ul>
                         <li>
@@ -99,171 +95,7 @@
                 <div>
                     <h3 id="product-category">All Products(11)</h3>
                     <ul id="products">
-                        <li class="Vegetables">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/1/vegetable1.png" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li class="blank"></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Vegetables">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/1/vegetable2.png" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li class="blank"></li>
-                                    <li class="blank"></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Vegetables">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/1/vegetable5.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Fruits">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/2/fruit4.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Pork">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/3/pork1.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Pork">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/3/pork2.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Beef">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/4/beef5.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Beef">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/4/beef2.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Beef">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/4/beef3.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Beef">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/4/beef1.jpg" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
-                        <li class="Chicken">
-                            <a href="product_view.html">
-                                <img src="../assets/images/products/5/chicken1.png" alt="#">
-                                <h3>Vegetables</h3>
-                                <ul class="rating">
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                                <span>36 Rating</span>
-                                <span class="price">$ 10</span>
-                            </a>
-                        </li>
+<?php                   $this->load->view('partials/customer_product_cards',$products)?>
                     </ul>
                 </div>
             </section>

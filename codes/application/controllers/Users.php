@@ -12,13 +12,19 @@ class Users extends CI_Controller{
 		if($user['access_level'] == 9){
 			redirect('admin');
 		}
-		$this->load->view('users/catalogue');
+		$data['products'] = $this->Product->fetch_all();
+		$data['user'] = $user;
+		$this->load->view('users/catalogue',$data);
 	}
 	public function login(){
-		// echo "Auth";
+		$user = $this->session->userdata('user');	
+		if($user){
+			redirect('/');
+		}
 		$this->load->view('login');
 	}
 	public function signup(){
+		$user = $this->session->userdata('user');	
 		$this->load->view('signup');
 	}
 	public function logout(){
@@ -44,6 +50,8 @@ class Users extends CI_Controller{
 			$encrypted_password = md5($this->input->post('password').''.$user['salt']);
 			if($user['password'] == $encrypted_password){
 				$user['user_id'] = $user['id'];
+				$user['full_name'] = $user['first_name'].' '.$user['last_name'];
+				$user['initials'] = substr($user['first_name'],0,1).substr($user['last_name'],0,1);
 				$user['access_level'] = $user['access_level'];
 				$this->session->set_userdata('user',$user);
 				redirect('/');
