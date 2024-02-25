@@ -5,6 +5,7 @@ class Users extends CI_Controller{
 		$this->load->model('User');
 		$this->load->model('Category');
 		$this->load->model('Product');
+		$this->load->model('Cart');
 	}
     public function index(){
 		$this->authenticate();
@@ -15,6 +16,16 @@ class Users extends CI_Controller{
 		$data['products'] = $this->Product->fetch_all();
 		$data['user'] = $user;
 		$this->load->view('users/catalogue',$data);
+	}
+	public function cart(){
+		$this->authenticate();
+		$user = $this->session->userdata('user');
+		if($user['access_level'] == 9){
+			redirect('admin');
+		}
+		$data['cart_items'] = $this->Cart->fetch_user_cart($user['user_id']);
+		$data['user'] = $user;
+		$this->load->view('users/cart',$data);
 	}
 	public function login(){
 		$user = $this->session->userdata('user');	

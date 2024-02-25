@@ -50,7 +50,7 @@
         <div class="wrapper">
 <?php       $this->load->view('partials/customer_header',$user)?>
             <aside>
-                <a href="catalogue.html"><img src="../assets/images/organic_shop_logo.svg" alt="Organic Shop"></a>
+                <a href="<?=base_url()?>"><img src="../assets/images/organic_shop_logo.svg" alt="Organic Shop"></a>
                 <!-- <ul>
                     <li class="active"><a href="#"></a></li>
                     <li><a href="#"></a></li>
@@ -60,7 +60,7 @@
                 <form action="process.php" method="post" class="search_form">
                     <input type="text" name="search" placeholder="Search Products">
                 </form>
-                <a class="show_cart" href="cart.html">Cart (0)</a>
+                <a class="show_cart" href="<?=base_url('users/cart')?>">Cart (0)</a>
                 <form action="process.php" method="post" class="categories_form">
 <?php               $this->load->view('partials/csrf_input')?>
                     <h3>Categories</h3>

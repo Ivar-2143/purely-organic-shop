@@ -35,10 +35,10 @@ $(document).ready(function() {
                 input.val(input_val - 1)
             };
         };
-
+        console.log('Updating Cart Item ID: ' + $(this).val(), input.val());
         $("input[name=update_cart_item_id]").val($(this).val())
         $("input[name=update_cart_item_quantity]").val(input.val());
-            $(".cart_items_form").trigger("submit");
+        $(".cart_items_form").trigger("submit");
     });
 
     $("body").on("submit", ".cart_items_form", function() {
@@ -46,6 +46,8 @@ $(document).ready(function() {
         $.post(form.attr("action"), form.serialize(), function(res) {
             $(".wrapper > section").html(res);
             $(".popover_overlay").fadeOut();
+        }).always(function(){
+            populate_csrf();
         });
         return false;
     });
@@ -77,3 +79,9 @@ $(document).ready(function() {
         return false;
     });
 });
+
+function populate_csrf(){
+    $.get('http://localhost.organic-shop/users/csrf',function(res){
+        $('.csrf').replaceWith(res);
+    });
+}

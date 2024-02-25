@@ -16,7 +16,7 @@ $data['images'] = $images ?>
     <script src="<?=base_url()?>assets/js/vendor/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="<?=base_url()?>assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="<?=base_url()?>assets/css/vendor/bootstrap-select.min.css">
-
+    <script src="<?=base_url('assets/js/global/global.js')?>"></script>
     <link rel="stylesheet" href="<?=base_url()?>assets/css/custom/global.css">
     <link rel="stylesheet" href="<?=base_url()?>assets/css/custom/product_view.css">
 </head>
@@ -76,10 +76,10 @@ $data['images'] = $images ?>
         });
     })
     function populate_csrf(){
-            $.get('http://localhost.organic-shop/users/csrf',function(res){
-                $('.csrf').replaceWith(res);
-            });
-        }
+        $.get('http://localhost.organic-shop/users/csrf',function(res){
+            $('.csrf').replaceWith(res);
+        });
+    }
 </script>
 <body>
     <div class="wrapper">
@@ -95,7 +95,7 @@ $data['images'] = $images ?>
             <form action="process.php" method="post" class="search_form">
                 <input type="text" name="search" placeholder="Search Products">
             </form>
-            <a class="show_cart" href="cart.html">Cart (0)</a>
+            <a class="show_cart" href="<?=base_url('users/cart')?>">Cart (0)</a>
             <a href="<?=base_url()?>">Go Back</a>
             <ul>
                 <li>
