@@ -22,6 +22,10 @@ $data['images'] = $images ?>
 </head>
 <script>
     $(document).ready(function() {
+        $('#add_to_cart_form').on('submit',function(e){
+            e.preventDefault();
+            return false;
+        })
         $("#add_to_cart").click(function(){
             // $("<span class='added_to_cart'>Added to cart succesfully!</span>")
             // .insertAfter(this)
@@ -30,14 +34,26 @@ $data['images'] = $images ?>
             // .fadeOut(function() { 
             //     $(this).remove();
             // });
-            $('#success_modal')
+            let form = $(this).closest('form');
+            console.log(form);
+            $.post(form.attr('action'), form.serialize(), function(res){
+                $('#success_modal')
                 .fadeIn()
                 .delay(1000)
                 .fadeOut();
-            $('.popover_overlay')
-                .fadeIn()
-                .delay(1000)
-                .fadeOut();
+                $('.popover_overlay')
+                    .fadeIn()
+                    .delay(1000)
+                    .fadeOut();
+            })
+            .fail(function(error){
+                console.error('ERROR: ' + $(error.responseText).find('p').html());
+            })
+            .always(function(){
+                console.log('fetching new csrf token');
+                populate_csrf();
+            });
+            
             return false;
         });
         $('.show_image').on('click', function(){
@@ -59,6 +75,11 @@ $data['images'] = $images ?>
             $('.total_amount').html('$ ' + total_amount);
         });
     })
+    function populate_csrf(){
+            $.get('http://localhost.organic-shop/users/csrf',function(res){
+                $('.csrf').replaceWith(res);
+            });
+        }
 </script>
 <body>
     <div class="wrapper">
@@ -92,12 +113,13 @@ $data['images'] = $images ?>
                     <span>36 Rating</span>
                     <span class="amount">$ <?=$product['price']?></span>
                     <p><?=$product['description']?></p>
-                    <form action="" method="post" id="add_to_cart_form">
+                    <form action="<?=base_url('carts/add/'.$product['id'])?>" method="post" id="add_to_cart_form">
                         <ul>
                             <li>
                                 <label for="value">Quantity</label>
-                                <input id="value" type="text" min-value="1" value="1">
+                                <input id="value" name="quantity" type="text" min-value="1" value="1">
                                 <input type="hidden" name="product_price" value="<?=$product['price']?>">
+<?php                           $this->load->view('partials/csrf_input')?>
                                 <ul>
                                     <li><button title="increase" type="button" class="increase_decrease_quantity" data-quantity-ctrl="1"></button></li>
                                     <li><button title="decrease" type="button" class="increase_decrease_quantity" data-quantity-ctrl="-1"></button></li>
