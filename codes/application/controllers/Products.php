@@ -18,7 +18,7 @@ class Products extends CI_Controller{
         $data['products'] = $this->Product->fetch_all();
 		$data['user'] = $user;
         $data['product'] = $this->Product->fetch_by_id($id);
-        $data['products'] = $this->Product->fetch_by_category($data['product']['category_id']);
+        $data['products'] = $this->Product->fetch_similar_by_category($data['product']['category_id'],$data['product']['id']);
         $images = json_decode($data['product']['image_links_json'],TRUE);
         $data['images'] = $this->Product->get_uploaded_files($data['product']['category_id'],$data['product']['name']);
         $data['main_image'] = $images['main_image'];
