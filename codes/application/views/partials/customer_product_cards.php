@@ -2,7 +2,7 @@
 foreach($products as $product){
     $images = json_decode($product['image_links_json'],TRUE)?>
     <li class="<?=$product['category']?>">
-        <a href="products/view/<?=$product['id']?>">
+        <a href="<?=base_url('products/view/'.$product['id'])?>">
             <img src="<?=base_url('assets/images/products/'.$product['category_id'].'/'.$product['name'].'/'.$images['main_image'])?>" alt="<?$product['name']?>">
             <h3><?=$product['name']?></h3>
             <ul class="rating">

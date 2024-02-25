@@ -21,11 +21,11 @@
     </head>
     <script>
         $(document).ready(function() {
-            // $('form').on('submit', function(e) {
-            //     console.log('submitted');
-            //     e.preventDefault();
-            //     return false;
-            // });
+            $('.categories_form').on('submit', function(e) {
+                console.log('submitted');
+                e.preventDefault();
+                return false;
+            });
             $('.categories').on('click',function(){
                 console.log($(this));
                 $('button.active').removeClass('active');
@@ -40,6 +40,11 @@
                 }
             })
         })
+        function populate_csrf(){
+            $.get('http://localhost.organic-shop/users/csrf',function(res){
+                $('.csrf').replaceWith(res);
+            });
+        }
     </script>
     <body>
         <div class="wrapper">

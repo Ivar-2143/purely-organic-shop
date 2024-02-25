@@ -9,6 +9,21 @@ class Products extends CI_Controller{
     public function index(){
 
     }
+    public function view($id){
+        $user = $this->session->userdata('user');
+        if(!$user){
+            redirect('/');
+        }
+        $data = array();
+        $data['products'] = $this->Product->fetch_all();
+		$data['user'] = $user;
+        $data['product'] = $this->Product->fetch_by_id($id);
+        $data['products'] = $this->Product->fetch_by_category($data['product']['category_id']);
+        $images = json_decode($data['product']['image_links_json'],TRUE);
+        $data['images'] = $this->Product->get_uploaded_files($data['product']['category_id'],$data['product']['name']);
+        $data['main_image'] = $images['main_image'];
+        $this->load->view('users/product_view',$data);
+    }
     public function get_product($id){
         $product = $this->Product->fetch_by_id($id);
         echo json_encode($product);

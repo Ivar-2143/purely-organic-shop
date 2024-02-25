@@ -20,6 +20,14 @@ class Product extends CI_Model{
                     WHERE category_id = ?";
         return $this->db->query($query, array($id))->result_array();
     }
+    public function fetch_similar_by_category($category_id,$id){
+        $query = "SELECT products.*, product_categories.name as category 
+                    FROM products 
+                    INNER JOIN product_categories 
+                        ON product_categories.id = products.category_id
+                    WHERE category_id = ? AND id != ?";
+        return $this->db->query($query, array($category_id,$id))->result_array();
+    }
     public function get_product_count(){
         return $this->db->query("SELECT count(id) as total_count FROM products")->row_array();
     }
@@ -103,6 +111,11 @@ class Product extends CI_Model{
     }
     public function get_files(){
         return get_filenames(APPPATH.'..\\assets\\images\\uploads\\');
+    }
+    public function get_uploaded_files($category,$name){
+        $dir = APPPATH.'..\\assets\\images\\products\\'.$category.'\\'.$name;
+        $files = get_filenames($dir);
+        return $files;
     }
     public function create_directory($category,$name){
         $dir = APPPATH.'..\\assets\\images\\products\\'.$category.'\\'.$name;
