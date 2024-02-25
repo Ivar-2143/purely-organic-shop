@@ -25,7 +25,7 @@ class Product extends CI_Model{
                     FROM products 
                     INNER JOIN product_categories 
                         ON product_categories.id = products.category_id
-                    WHERE products.category_id = ? AND products.id != ?";
+                    WHERE products.category_id = ? HAVING products.id != ?";
         return $this->db->query($query, array($category_id,$id))->result_array();
     }
     public function get_product_count(){
