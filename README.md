@@ -26,7 +26,8 @@ The clickable prototype of the __core features__ were built initially by
 - Order History
 - Email Notification
 ## Demo
-### Coming Soon...
+### Youtube Video
+- https://youtu.be/Z1NT6sSccIM
 
 ## Database ERD
 ![thumbnail](./clickable_prototype/assets/images/erd/Organic_Shop_ERD.png)
@@ -36,6 +37,3 @@ Make sure you have theses installed if you want to clone the application.
 - [PHP](https://www.php.net/downloads) *version used 7.4.33*
 - [WAMP](https://www.wampserver.com/en/) or [MAMP](https://www.mamp.info/en/windows/) or [XAMPP](https://www.apachefriends.org/)
 - [MySQL](https://www.mysql.com/products/workbench/) *version used 8.0.33*
-
-## What I leaned in this project
-I will update once I'm done 😉
